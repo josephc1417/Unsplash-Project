@@ -14,9 +14,34 @@ const Gallery = () => {
       return result.data;
     }
   })
-  console.log(response);
+
+  // conditions for rendering 
+  if(response.isLoading){
+    return(
+      <section className="image-container">
+        <h4>Loading...</h4>
+      </section>
+    );
+  }
+  if(response.isError){
+    return(
+      <section className="image-container">
+        <h4>There was an error...</h4>
+      </section>
+    );
+  }
+const results = response.data.results;
+if(results.length <1){
+  return(
+    <section className="image-container">
+      <h4>No images found...</h4>
+    </section>
+  );
+}
+
+
   return (
-    <h2>Gallery</h2>
+    <section className="image-container">Gallery</section>
   )
 }
 
