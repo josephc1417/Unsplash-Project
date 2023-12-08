@@ -8,14 +8,14 @@ export const AppProvider = ({ children }) => {
 
      const [isDarkTheme, setIsDarkTheme] = useState(false)
 
-     const toggleTheme = () => {
+     const toggleDarkTheme = () => {
        const newDarkTheme = !isDarkTheme;
        setIsDarkTheme(newDarkTheme);
      }
-     }
+     
 
      return (
-          <AppContext.Provider value={{greeting}}>{children}</AppContext.Provider>
+          <AppContext.Provider value={{isDarkTheme, toggleDarkTheme}}>{children}</AppContext.Provider>
      );
 }
 export const useGlobalContext = () => {
