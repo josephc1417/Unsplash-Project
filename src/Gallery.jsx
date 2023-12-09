@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useGlobalContext } from "./context";
 
-const url = 'https://api.unsplash.com/search/photos?client_id=digBziXjSqhJse76nbOIJIbeckbsZy_A7a8Bn8Flvtk&query=office';
+
+const url = 'https://api.unsplash.com/search/photos?client_id=digBziXjSqhJse76nbOIJIbeckbsZy_A7a8Bn8Flvtk';
 
 
 const Gallery = () => {
-  
+  const { searchTerm } = useGlobalContext();
   const response = useQuery({
-    queryKey: ['images'],
+    queryKey: ['images', searchTerm],
     queryFn: async () => {
-      const result = await axios.get(url);
+      const result = await axios.get(`${url}&query=${searchTerm}`);
 
       return result.data;
     }
@@ -47,7 +49,8 @@ const Gallery = () => {
     {results.map((item) => {
     const url = item?.urls?.regular;
       return (
-        <img key={item.id} src={item.urls.regular} alt={item.alt_description} />
+        <img key={item.id} src={url} alt={item.alt_description} 
+        className="img"/>
       );
     })}
     </section>
