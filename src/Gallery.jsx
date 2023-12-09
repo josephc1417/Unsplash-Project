@@ -23,6 +23,7 @@ const Gallery = () => {
       </section>
     );
   }
+
   if(response.isError){
     return(
       <section className="image-container">
@@ -30,18 +31,26 @@ const Gallery = () => {
       </section>
     );
   }
-const results = response.data.results;
-if(results.length <1){
+
+  const results = response.data.results;
+  if(results.length <1){
   return(
     <section className="image-container">
-      <h4>No images found...</h4>
+      <h4>No results found...</h4>
     </section>
   );
 }
 
 
   return (
-    <section className="image-container">Gallery</section>
+    <section className="image-container">
+    {results.map((item) => {
+    const url = item?.urls?.regular;
+      return (
+        <img key={item.id} src={item.urls.regular} alt={item.alt_description} />
+      );
+    })}
+    </section>
   )
 }
 
